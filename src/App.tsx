@@ -1,22 +1,41 @@
-import React from 'react';
+import React from "react";
+import { useQuery, gql } from "@apollo/client";
+import LoadingDialog from "./Components/LoadingDialog";
+import Instructions from "./Components/Instructions";
+import Table from "./Components/Table";
+import { useAppSelector, useAppDispatch } from "./Store/hooks";
+import { set_deck } from "./Store/dealer.slice";
+import { GameState } from "../types";
+import Winner from "./Components/Winner";
+
+const NEW_DECK = gql`
+  query deck {
+    deck {
+      id
+    }
+  }
+`;
 
 function App() {
+  // New deck
+  const { gameState, deck } = useAppSelector((state) => state.dealer);
+  const dispatch = useAppDispatch();
+  const gameNotStarted = gameState === GameState.NOT_STARTED;
+
+  const { loading, error, data } = useQuery(NEW_DECK);
+
+  if (data && !deck) {
+    dispatch(set_deck(data.deck.id));
+  }
+
+  if (loading) return <LoadingDialog />;
+  if (error) return <p>Error :(</p>;
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {gameState === GameState.NOT_STARTED && <Instructions />}
+      {gameState === GameState.STARTED && <Table />}
+      {gameState === GameState.OVER && <Winner />}
     </div>
   );
 }

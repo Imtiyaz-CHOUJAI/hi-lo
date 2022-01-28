@@ -4,9 +4,9 @@ export enum GameState {
   OVER,
 }
 
-export enum players {
-  player1,
-  player2,
+export enum Players {
+  player1 = "player1",
+  player2 = "player2",
 }
 
 export enum Guesses {
@@ -18,7 +18,7 @@ export interface Player {
   name: string;
   avatar?: string;
   score: number;
-  pile: number;
+  roundOver: boolean;
 }
 
 export interface Deck {
@@ -29,4 +29,10 @@ export interface Card {
   code: string;
   image: string;
   value: string;
+}
+
+export interface AlertInterface {
+  open: boolean;
+  message?: string;
+  type?: "success" | "error";
 }
