@@ -17,7 +17,7 @@ How the game works:
 
 # Frontend
 
-> :warning: **Frontend WIP**: The frontend is still incomplete, a few buges with guessing on the 3rd try.
+> :warning: **Frontend WIP**: The frontend is still incomplete, a few bugs with guessing on the 3rd try.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) but changed to [Vite](https://vitejs.dev) as it's faster and easier to use, the app also uses [Redux](https://redux.js.org/), [Apollo Client](https://www.apollographql.com/docs/react/) and [Mui](https://mui.com/) react ui library
 
